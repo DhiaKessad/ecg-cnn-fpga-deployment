@@ -11,3 +11,9 @@ The project addresses the challenge of deploying deep learning models onto resou
 - **Quantization:** Conversion of the model from Float32 to INT8 using `TFLite` to reduce memory footprint for hardware.
 - **Hardware Export:** Custom Python scripts that extract weights and biases from the quantized model and format them into Xilinx `.coe` files for Block RAM initialization.
 - **Verification:** Bit-exact verification scripts to ensure the Python simulation matches the expected integer hardware output.
+
+## Installation
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
