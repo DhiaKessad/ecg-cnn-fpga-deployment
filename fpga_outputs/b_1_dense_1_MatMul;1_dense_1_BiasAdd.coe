@@ -1,0 +1,4 @@
+; Biases for 1_dense_1_MatMul;1_dense_1_BiasAdd Shape:(1, 1)
+memory_initialization_radix=10;
+memory_initialization_vector=
+19;

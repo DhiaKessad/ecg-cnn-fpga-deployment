@@ -1,0 +1,4 @@
+; Biases for 1_dense_1_BiasAdd_ReadVariableOp_resource Shape:(1,)
+memory_initialization_radix=10;
+memory_initialization_vector=
+288;
