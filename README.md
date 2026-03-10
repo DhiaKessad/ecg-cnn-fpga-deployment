@@ -1,6 +1,6 @@
 # ECG Arrhythmia Detection & FPGA Deployment Pipeline
 
-A full-stack hardware-software co-design pipeline for biomedical AI at the edge. The project takes raw ECG recordings from the MIT-BIH Arrhythmia Database, processes the signals, searches for an FPGA-optimal neural architecture using a multi-objective genetic algorithm, trains the best model, quantises it to INT8, and exports hardware-ready initialisation files for Xilinx FPGA Block RAM — all in pure Python.
+A full-stack hardware-software co-design pipeline for biomedical AI at the edge. The project takes raw ECG recordings from the MIT-BIH Arrhythmia Database, processes the signals, searches for an FPGA-optimal neural architecture using a multi-objective genetic algorithm, trains the best model, quantises it to INT8, and exports hardware-ready initialisation files for Xilinx FPGA Block RAM all in pure Python.
 
 ---
 
