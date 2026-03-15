@@ -1,6 +1,0 @@
-; Weights for 1_conv1d_4_conv1d_Squeeze Shape:(3,)
-memory_initialization_radix=10;
-memory_initialization_vector=
--1,
-86,
-32;
