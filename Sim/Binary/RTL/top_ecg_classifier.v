@@ -23,9 +23,12 @@ module top_ecg_classifier(
                 .data_out(c1_out_bus[i*16 +: 16])
             );
         end
+    // A loop of 16 representing 16 filters, the parameter i decides the range of values of w/b
     endgenerate
 
+
     // --- Layer 2: MaxPool1 (16 Channels) ---
+    //fix later, wide buses
     wire [15:0]  p1_valid_bus;
     wire [255:0] p1_out_bus;
     generate
@@ -40,12 +43,14 @@ module top_ecg_classifier(
         end
     endgenerate
 
+
     // --- Layer 3: Conv2 (32 Channels) ---
     wire [31:0]  c2_valid_bus;
     wire [511:0] c2_out_bus;
     generate
         for (i = 0; i < 32; i = i + 1) begin : conv2_parallel
             layer_conv2_k3 #(
+                .IN_CH(16),
                 .WEIGHT_FILE("hex/w_conv2.hex"),
                 .BIAS_FILE  ("hex/b_conv2.hex"),
                 .FILTER_ID  (i)
@@ -64,7 +69,7 @@ module top_ecg_classifier(
     wire [511:0] p2_out_bus;
     generate
         for (i = 0; i < 32; i = i + 1) begin : pool2_parallel
-            layer_maxpool2 u_p2 (
+            layer_maxpool1 u_p2 (
                 .clk(clk), .reset(reset),
                 .data_valid_in(c2_valid_bus[i]),
                 .data_in(c2_out_bus[i*16 +: 16]),
@@ -79,7 +84,8 @@ module top_ecg_classifier(
     wire [1023:0] c3_out_bus;
     generate
         for (i = 0; i < 64; i = i + 1) begin : conv3_parallel
-            layer_conv3_k3 #(
+            layer_conv2_k3 #(
+                .IN_CH(32),
                 .WEIGHT_FILE("hex/w_conv3.hex"),
                 .BIAS_FILE  ("hex/b_conv3.hex"),
                 .FILTER_ID  (i)

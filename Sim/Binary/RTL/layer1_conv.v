@@ -1,3 +1,4 @@
+//Processing each filter at a time; kernel 5
 module layer_conv1_k5 #(
     parameter WEIGHT_FILE = "hex/w_conv1.hex",
     parameter BIAS_FILE   = "hex/b_conv1.hex",
@@ -22,6 +23,7 @@ module layer_conv1_k5 #(
         sum = (biases[FILTER_ID] <<< 8);
         for (m = 0; m < 5; m = m + 1)
             sum = sum + (window[m] * weights[FILTER_ID*5 + m]);
+            //full node
     end
 
     initial begin
@@ -38,6 +40,7 @@ module layer_conv1_k5 #(
             data_out      <= 0;
         end else if (data_valid_in) begin
             // Shift register: window[4] = oldest, window[0] = newest
+            //Sliding window method, fast
             window[4] <= window[3];
             window[3] <= window[2];
             window[2] <= window[1];
@@ -46,12 +49,12 @@ module layer_conv1_k5 #(
 
             if (count < 5) count <= count + 1;
 
-            // FIX: window is full after 5 inputs → count reaches 4 before increment
+            // Validate if all elements are loaded
             data_valid_out <= (count >= 4);
 
             // ReLU + scale
             if (sum[31])
-                data_out <= 16'd0;
+                data_out <= 16'd0; //Negative is made 0
             else
                 data_out <= sum[23:8];
         end else begin

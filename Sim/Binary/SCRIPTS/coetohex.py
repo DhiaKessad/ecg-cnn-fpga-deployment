@@ -1,3 +1,6 @@
+#converting .coe to .hex
+#you need .coe for memory wizard in ISE Xilinix
+#but you need .hex for simulation
 import os
 
 def coe_to_hex(src_folder, dst_folder, bit_width=16):

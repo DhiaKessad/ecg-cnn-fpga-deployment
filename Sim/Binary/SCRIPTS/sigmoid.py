@@ -1,3 +1,5 @@
+#Values of the sigmoid function need to be pre-calculated, and stored in a memo to avoid heavy math
+
 import numpy as np
 
 def generate_sigmoid_lut(filename="sigmoid_lut.hex", size=256):
@@ -11,7 +13,7 @@ def generate_sigmoid_lut(filename="sigmoid_lut.hex", size=256):
     
     with open(filename, "w") as f:
         for val in y_fixed:
-            # Ensure it fits in 4 hex digits
+            # writing it in 4 hex (16 bit)
             f.write(f"{val:04x}\n")
 
 generate_sigmoid_lut()
